@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { BullOptionsFactory, BullModuleOptions } from '@nestjs/bull';
+import {
+  SharedBullConfigurationFactory,
+  BullRootModuleOptions,
+} from '@nestjs/bull';
 
 @Injectable()
-export class BullConfigService implements BullOptionsFactory {
-  createBullOptions(): BullModuleOptions {
+export class BullConfigService implements SharedBullConfigurationFactory {
+  createSharedConfiguration(): BullRootModuleOptions {
     return {
       redis: {
         host: process.env.REDIS_HOST || 'localhost',
