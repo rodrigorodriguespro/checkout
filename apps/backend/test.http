@@ -3,3 +3,23 @@ POST http://localhost:3000/auth/token
 Content-Type: application/json
 
 ###
+
+
+### Enviar novo pagamento
+# Substituir Token
+POST http://localhost:3000/payments
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjMiLCJyb2xlIjoidXNlciIsImlhdCI6MTc0NjU3MTM4NiwiZXhwIjoxNzQ2NTc0OTg2fQ.WtQn4fvWPWb6N3o6QKRPrHD_fTNdcB5djUH0tC5YcsQ
+Content-Type: application/json
+
+{
+  "name": "Rodrigo",
+  "amount": 199.90,
+  "method": "pix"
+}
+
+###
+
+### Buscar status do pagamento
+# Substituir ID e Token
+GET http://localhost:3000/payments/39bbb45b-ba33-495c-b6b2-ad52b17bf6ad
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjMiLCJyb2xlIjoidXNlciIsImlhdCI6MTc0NjU3MTM4NiwiZXhwIjoxNzQ2NTc0OTg2fQ.WtQn4fvWPWb6N3o6QKRPrHD_fTNdcB5djUH0tC5YcsQ
