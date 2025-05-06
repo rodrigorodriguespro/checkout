@@ -1,0 +1,5 @@
+### Obter token JWT
+POST http://localhost:3000/auth/token
+Content-Type: application/json
+
+###
