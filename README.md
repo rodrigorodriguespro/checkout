@@ -16,7 +16,6 @@ Este projeto é um sistema de checkout fullstack desenvolvido com **NestJS (back
 - [Vue 3 + Vite](https://vitejs.dev/)
 - [Bootstrap 5](https://getbootstrap.com/)
 - Axios para comunicação com a API
-- Integração com QR Code via Google Charts
 
 ### DevOps e Ferramentas
 - [Docker](https://www.docker.com/) e Docker Compose
@@ -28,13 +27,14 @@ Este projeto é um sistema de checkout fullstack desenvolvido com **NestJS (back
 
 ## 📦 Estrutura do Projeto
 
+```
 ├── apps/
-│ ├── backend/ → NestJS API com filas e autenticação
-│ └── frontend/ → Vue 3 + Bootstrap
-├── docker-compose.dev.yml
-├── start.sh → Script para subir o projeto com ou sem Docker
-├── .env.example → Variáveis de ambiente (exemplo)
-
+│   ├── backend/ → NestJS API com filas e autenticação  
+│   └── frontend/ → Vue 3 + Bootstrap  
+├── docker-compose.dev.yml  
+├── start.sh → Script para subir o projeto com ou sem Docker  
+├── .env.example → Variáveis de ambiente (exemplo)  
+```
 
 ---
 
