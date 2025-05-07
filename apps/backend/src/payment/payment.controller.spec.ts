@@ -41,7 +41,7 @@ describe('PaymentController', () => {
       const dto: CreatePaymentDto = {
         name: 'John Doe',
         amount: 100,
-        method: 'debito',
+        method: 'boleto',
       };
       const result = { id: '123', status: 'pending' };
       mockPaymentService.create.mockResolvedValue(result);
