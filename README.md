@@ -1,84 +1,132 @@
-# Turborepo starter
+# 💳 Projeto Checkout - Fullstack com NestJS, Vue 3 e PNPM Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+Este projeto é um sistema de checkout fullstack desenvolvido com **NestJS (backend)** e **Vue 3 (frontend)**, utilizando **PNPM Workspaces** com **TurboRepo** para gerenciamento eficiente de pacotes e scripts. Ele simula o processo de pagamento com cartões ou Pix, gerando QR Code, controlando o status da transação, e utilizando filas com Redis para processamentos assíncronos.
 
-## Using this example
+---
 
-Run the following command:
+## 🧰 Tecnologias Utilizadas
 
-```sh
-npx create-turbo@latest
+### Backend
+- [NestJS](https://nestjs.com/)
+- [Bull](https://docs.nestjs.com/techniques/queues) com Redis
+- [Zod](https://zod.dev/) para validações
+- JWT para autenticação
+
+### Frontend
+- [Vue 3 + Vite](https://vitejs.dev/)
+- [Bootstrap 5](https://getbootstrap.com/)
+- Axios para comunicação com a API
+- Integração com QR Code via Google Charts
+
+### DevOps e Ferramentas
+- [Docker](https://www.docker.com/) e Docker Compose
+- [PNPM](https://pnpm.io/) com Workspaces
+- [TurboRepo](https://turbo.build/repo) para orquestração de scripts
+- Testes com Jest no backend
+
+---
+
+## 📦 Estrutura do Projeto
+
+├── apps/
+│ ├── backend/ → NestJS API com filas e autenticação
+│ └── frontend/ → Vue 3 + Bootstrap
+├── docker-compose.dev.yml
+├── start.sh → Script para subir o projeto com ou sem Docker
+├── .env.example → Variáveis de ambiente (exemplo)
+
+
+---
+
+## ⚙️ Requisitos
+
+| Ferramenta | Versão mínima |
+|------------|----------------|
+| Node.js    | >= 18          |
+| PNPM       | >= 9.0         |
+| Docker     | recomendado (para Redis e dev) |
+
+---
+
+## 🛠️ Setup do Projeto
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/rodrigorodriguespro/checkout
+cd checkout
 ```
 
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+### 2. Instale as dependências
+```bash
+pnpm install
 ```
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
+### 3. Copie o .env
+```bash
+cp .env.example .env
 ```
 
-### Remote Caching
+## ▶️ Rodando o projeto
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+### 🔹 Com PNPM (sem Docker)
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+Utilize esse comando para rodar Redis via Docker e iniciar backend + frontend com hot reload:
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```bash
+pnpm dev:all
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+Esse script executa:
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+* docker compose up -d (apenas para Redis)
 
+* pnpm --filter backend start:dev
+
+* pnpm --filter frontend dev
+
+### 🔹 Com Docker Compose
+
+Utilize o ambiente de desenvolvimento completo com containers isolados:
+
+```bash
+docker compose -f docker-compose.dev.yml up --build
 ```
-npx turbo link
+
+Ou utilize o script `start.sh` para rodar o projeto com Docker:
+
+```bash
+./start.sh
 ```
 
-## Useful Links
+✅ Essa opção é ideal se você não quer rodar serviços localmente ou está em uma máquina configurada apenas com Docker.
 
-Learn more about the power of Turborepo:
+## 🌐 Endpoints e Acesso
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+* Frontend: http://localhost:5173
+* Backend: http://localhost:3000
+
+## ✅ Scripts Disponíveis
+Workspace (package.json raiz)
+
+```bash
+"dev:all": "docker compose up -d && pnpm --filter backend start:dev & pnpm --filter frontend dev",
+```
+
+Backend
+```bash
+pnpm --filter backend start:dev     # Hot reload API
+pnpm --filter backend test          # Executar testes
+```
+
+Frontend
+```bash
+pnpm --filter frontend dev          # Inicia o Vite Dev Server
+```
+
+🧪 Testes
+No backend:
+
+```bash
+pnpm --filter backend test
+```
