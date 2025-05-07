@@ -9,18 +9,13 @@
         <h4 class="text-xl font-bold">Forma de Pagamento</h4>
 
         <div class="flex space-x-2">
-            <button
-                v-for="option in paymentOptions"
-                :key="option.label"
-                @click="selectMethod(option.label)"
-                :disabled="paymentLocked"
-                :class="[
+            <button v-for="option in paymentOptions" :key="option.label" @click="selectMethod(option.label)"
+                :disabled="paymentLocked" :class="[
                     'flex items-center px-4 py-3 rounded transition-colors',
                     method === option.label
                         ? 'bg-gray-300 text-blue-700 font-semibold'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                ]"
-            >
+                ]">
                 <span class="mr-2 text-xl">
                     <component :is="option.icon" />
                 </span>
@@ -29,42 +24,30 @@
         </div>
 
         <div>
-            <input
-                v-model="amountInput"
-                @input="onAmountInput"
-                placeholder="Valor"
-                class="w-full p-2 border rounded mb-2"
-                inputmode="decimal"
-                :disabled="paymentLocked"
-            />
+            <input v-model="amountInput" @input="onAmountInput" placeholder="Valor"
+                class="w-full p-2 border rounded mb-2" inputmode="decimal" :disabled="paymentLocked" />
         </div>
 
         <!-- Cartão -->
         <div v-if="status === '' && method === 'Cartão'">
-            <input
-                v-model="form.name"
-                placeholder="Nome do Titular"
-                class="w-full p-2 border rounded mb-2"
-                :class="{'border-red-500': nameError}"
-            />
+            <input v-model="form.name" placeholder="Nome do Titular" class="w-full p-2 border rounded mb-2"
+                :class="{'border-red-500': nameError}" />
             <div v-if="nameError" class="text-red-600 text-sm mb-2">Nome do Titular é obrigatório.</div>
-            <button class="w-full bg-black text-white py-2 rounded mt-3" @click="submit" :disabled="paymentLocked">Finalizar Compra</button>
+            <button class="w-full bg-black text-white py-2 rounded mt-3" @click="submit"
+                :disabled="paymentLocked">Finalizar Compra</button>
         </div>
 
         <!-- Pix -->
         <div v-else-if="method === 'Pix' && !pixGenerated">
-            <input
-                v-model="form.name"
-                placeholder="Nome do Pagador"
-                class="w-full p-2 border rounded mb-2"
-                :class="{'border-red-500': nameError}"
-            />
+            <input v-model="form.name" placeholder="Nome do Pagador" class="w-full p-2 border rounded mb-2"
+                :class="{'border-red-500': nameError}" />
             <div v-if="nameError" class="text-red-600 text-sm mb-2">Nome do Pagador é obrigatório.</div>
-            <button class="w-full bg-black text-white py-2 rounded mt-3" @click="generatePix" :disabled="paymentLocked">Gerar Pix</button>
+            <button class="w-full bg-black text-white py-2 rounded mt-3" @click="generatePix"
+                :disabled="paymentLocked">Gerar Pix</button>
         </div>
 
         <div v-if="pixGenerated && method === 'Pix'">
-            <img :src="`https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${encodeURIComponent(pixCode)}`" alt="QR Code" class="w-full mb-2" />
+            <img :src="urlPixCode" alt="QR Code" class="w-50 mb-2 " />
             <div class="flex items-center space-x-2">
                 <input v-model="pixCode" readonly class="w-full p-2 border rounded" />
                 <button class="bg-gray-100 px-4 py-2 rounded" @click="copyPix">Copiar</button>
@@ -72,14 +55,11 @@
         </div>
 
         <div v-else-if="status === '' && method === 'Boleto'">
-            <input
-                v-model="form.name"
-                placeholder="Nome do Pagador"
-                class="w-full p-2 border rounded mb-2"
-                :class="{'border-red-500': nameError}"
-            />
+            <input v-model="form.name" placeholder="Nome do Pagador" class="w-full p-2 border rounded mb-2"
+                :class="{'border-red-500': nameError}" />
             <div v-if="nameError" class="text-red-600 text-sm mb-2">Nome do Pagador é obrigatório.</div>
-            <button class="w-full bg-black text-white py-2 rounded mt-3" @click="submit" :disabled="paymentLocked">Gerar Boleto</button>
+            <button class="w-full bg-black text-white py-2 rounded mt-3" @click="submit" :disabled="paymentLocked">Gerar
+                Boleto</button>
         </div>
 
         <div v-if="status === 'pending'">
@@ -166,7 +146,8 @@ const status = ref('');
 const paymentId = ref('');
 const token = ref('');
 const pixGenerated = ref(false);
-const pixCode = ref('00020126380014BR.GOV.BCB.PIX0116tesstes@demo.com52040000530398654072532.005802BR5917DANIEL NASCIMENTO6006OLINDA62110507213563063048CE7');
+const pixCode = ref(encodeURIComponent('00020126380014BR.GOV.BCB.PIX0116tesstes@demo.com52040000530398654072532.005802BR5917DANIEL NASCIMENTO6006OLINDA62110507213563063048CE7'));
+const urlPixCode = ref(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${pixCode.value}`);
 const paymentLocked = ref(false);
 const nameError = ref(false);
 const pollingInterval = ref<number | null>(null);
