@@ -9,15 +9,26 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/vue-fontawesome": "^2.0.6",
+    "@tailwindcss/vite": "^4.1.5",
+    "@vueuse/core": "^13.1.0",
     "axios": "^1.9.0",
-    "vue": "^3.5.13"
+    "bootstrap": "^5.3.6",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "core-js": "^3.6.5",
+    "lucide-vue-next": "^0.507.0",
+    "reka-ui": "^2.2.1",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss": "^4.1.5",
+    "tw-animate-css": "^1.2.9",
+    "vue": "^3.5.13",
+    "vue-country-code-select": "^1.6.7"
   },
   "devDependencies": {
+    "@types/node": "^22.15.14",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/tsconfig": "^0.7.0",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.5",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
     "vue-tsc": "^2.2.8"
