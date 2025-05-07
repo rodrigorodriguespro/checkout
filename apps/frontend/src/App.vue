@@ -1,9 +1,7 @@
 <template>
-  <main class="min-h-screen flex items-center justify-center bg-gray-100">
-    <PaymentForm />
-  </main>
+  <CheckoutForm />
 </template>
 
 <script setup>
-import PaymentForm from './components/PaymentForm.vue'
+import CheckoutForm from './components/PaymentForm.vue'
 </script>
