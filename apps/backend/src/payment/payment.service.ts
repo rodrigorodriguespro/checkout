@@ -33,7 +33,7 @@ export class PaymentService {
     const payment: Payment = { ...dto, id, status: 'pending' };
     this.payments.set(id, payment);
 
-    await this.paymentQueue.add('process', { id }, { delay: 5000 });
+    await this.paymentQueue.add('process', { id }, { delay: 6000 });
 
     return { id, status: payment.status };
   }

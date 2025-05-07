@@ -66,7 +66,7 @@ describe('PaymentService', () => {
       const dto: CreatePaymentDto = {
         name: 'Bob',
         amount: 300,
-        method: 'boleto',
+        method: 'credito',
       };
       paymentQueue.add.mockResolvedValue(undefined);
       const { id } = await service.create(dto);
@@ -85,7 +85,7 @@ describe('PaymentService', () => {
       const dto: CreatePaymentDto = {
         name: 'Carol',
         amount: 400,
-        method: 'cartao',
+        method: 'credito',
       };
       paymentQueue.add.mockResolvedValue(undefined);
       const { id } = await service.create(dto);
